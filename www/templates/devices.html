@@ -1,5 +1,12 @@
 <ion-view view-title="Devices">
-  <ion-content>
-    <div class="view-content">Hiya!</div>
+  <ion-content class="padding">
+    <ion-list>
+      <ion-item ng-repeat="Device in devices">
+        <a href="/devices/{{ Device.id }}" class="item item-icon-left">
+          <i class="icon ion-record {{ Device.connected ? 'balanced' : 'dark' }}"></i> 
+          {{ Device.name }} 
+        </a>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>

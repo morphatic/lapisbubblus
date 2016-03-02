@@ -20,14 +20,17 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('DeviceController', function(store, $scope, $ionicPopup) {
+.controller('DeviceController', function(store, $scope, $ionicPopup, Device) {
   var token    = store.get('particle_access_token'),
-      particle = new Particle(),
-      devices  = particle.listDevices({auth: token});
-  devices.then(
-    function(devices) {
-      store.set('particle_devices', devices);
-      console.log('Devices: ', devices);
+      particle = new Particle();
+  $scope.devices = [];
+  particle.listDevices({auth: token}).then(
+    function(response) {
+      $scope.$apply(function() {
+        angular.forEach(response.body, function(deviceData) {
+          this.push(new Device(deviceData, $scope));
+        }, $scope.devices);
+      });
     },
     function(err) {
       var alertPopup = $ionicPopup.alert({

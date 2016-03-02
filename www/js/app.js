@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'angular-storage'])
 
-.run(function($ionicPlatform, $rootScope, store, $state) {
+.run(function($ionicPlatform, $rootScope, store, $state, Device) {
 
   // route all requests to login screen if necessary, i.e. no Particle API access token has been stored
   $rootScope.$on('$stateChangeStart', function(e, toState) {
@@ -18,18 +18,6 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
       }
     }
   });
-
-  var p = new Particle(), token = store.get('particle_access_token');
-  p.getEventStream({deviceId: "mine", auth: token})
-   .then(
-    function(stream) { 
-      stream.on('event', function(data) {
-        console.log(data);
-      });
-    },
-    function(err) {
-      console.log(err);
-    });
 
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
