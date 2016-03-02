@@ -20,8 +20,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   });
 
   var p = new Particle(), token = store.get('particle_access_token');
-  console.log(token);
-  p.getEventStream({deviceId: "300024001747343337363432", auth: token})
+  p.getEventStream({deviceId: "mine", auth: token})
    .then(
     function(stream) { 
       stream.on('event', function(data) {
