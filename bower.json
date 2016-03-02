@@ -1,0 +1,11 @@
+{
+  "name": "HelloIonic",
+  "private": "true",
+  "dependencies": {
+    "particle-api-js": "5.1.*",
+    "a0-angular-storage": "0.0.*"
+  },
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.2.4"
+  }
+}
