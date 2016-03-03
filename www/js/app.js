@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', 'angular-storage'])
 
-.run(function($ionicPlatform, $rootScope, store, $state, Device) {
+.run(function($ionicPlatform, $rootScope, store, $state) {
 
   // route all requests to login screen if necessary, i.e. no Particle API access token has been stored
   $rootScope.$on('$stateChangeStart', function(e, toState) {
@@ -48,6 +48,12 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services', '
   .state('devices', {
     url: '/devices',
     templateUrl: 'templates/devices.html',
+    controller: 'DevicesController'
+  })
+
+  .state('device', {
+    url: '/devices/:id',
+    templateUrl: 'templates/device.html',
     controller: 'DeviceController'
   });
 

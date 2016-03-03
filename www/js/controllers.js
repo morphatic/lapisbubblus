@@ -20,23 +20,45 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('DeviceController', function(store, $scope, $ionicPopup, Device) {
-  var token    = store.get('particle_access_token'),
-      particle = new Particle();
+.controller('DevicesController', function($scope, Devices) {
   $scope.devices = [];
-  particle.listDevices({auth: token}).then(
-    function(response) {
-      $scope.$apply(function() {
-        angular.forEach(response.body, function(deviceData) {
-          this.push(new Device(deviceData, $scope));
-        }, $scope.devices);
+  Devices.load().then(
+    function(deviceList) {
+      angular.forEach(deviceList.body, function(deviceData) {
+        this.push(deviceData);
+      }, $scope.devices);
+      $scope.$apply();
+    },
+    function(err) {console.log(err);}
+  );
+  Devices.listen().then(
+    function(stream) {
+      stream.on('event', function(status) {
+        if ("spark/status" === status.name) {
+          for (var i = 0; i < $scope.devices.length; i+=1) {
+            if ($scope.devices[i].id === status.coreid) {
+              $scope.devices[i].connected = "online" === status.data;
+              $scope.$apply();
+            }
+          }
+        }
       });
     },
-    function(err) {
-      var alertPopup = $ionicPopup.alert({
-        title: 'Error Listing Devices',
-        template: err.body.error_description
+    function(err) {console.log(err);}
+  );
+})
+
+.controller('DeviceController', function($scope, $stateParams, Devices) {
+  Devices.load().then(
+    function(deviceList) {
+      angular.forEach(deviceList.body, function(deviceData) {
+        if ($stateParams.id === deviceData.id) {
+          $scope.device = deviceData;
+        }
       });
-    }
+      $scope.$apply();
+      console.log($scope.device);
+    },
+    function(err) {console.log(err);}
   );
 });
