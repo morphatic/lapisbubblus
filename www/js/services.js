@@ -17,12 +17,13 @@ angular.module('starter.services', [])
       return particle.getEventStream({deviceId: "mine", auth: token});
     },
     get: function(deviceId) {
-      for (var i = 0; i < devices.length; i+=1) {
-        if (devices[i].id === deviceId) {
-          return devices[i];
-        }
-      }
-      return null;
+      return particle.getDevice({deviceId: deviceId, auth: token});
+    },
+    getVar: function(deviceId, varName) {
+      return particle.getVariable({deviceId: deviceId, name: varName, auth: token});
+    },
+    call: function(deviceId, funcName, arg) {
+      return particle.callFunction({deviceId: deviceId, name: funcName, argument: arg, auth: token});
     }
   };
 });

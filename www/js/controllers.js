@@ -49,16 +49,32 @@ angular.module('starter.controllers', [])
 })
 
 .controller('DeviceController', function($scope, $stateParams, Devices) {
-  Devices.load().then(
-    function(deviceList) {
-      angular.forEach(deviceList.body, function(deviceData) {
-        if ($stateParams.id === deviceData.id) {
-          $scope.device = deviceData;
-        }
-      });
+  $scope.device = {};
+  Devices.get($stateParams.id).then(
+    function(deviceData) {
+      $scope.device = deviceData.body;
       $scope.$apply();
-      console.log($scope.device);
+      console.log(deviceData.body);
     },
     function(err) {console.log(err);}
   );
+
+  $scope.showRed = function() {
+    Devices.call($stateParams.id, "setShow", "solidRed").then(
+      function(data) { console.log(data); },
+      function(err)  { console.log(err);  }
+    );
+  };
+  $scope.showBlue = function() {
+    Devices.call($stateParams.id, "setShow", "solidBlue").then(
+      function(data) { console.log(data); },
+      function(err)  { console.log(err);  }
+    );
+  };
+  $scope.showGreen = function() {
+    Devices.call($stateParams.id, "setShow", "solidGreen").then(
+      function(data) { console.log(data); },
+      function(err)  { console.log(err);  }
+    );
+  };
 });
