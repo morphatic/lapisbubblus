@@ -3,7 +3,8 @@
   "private": "true",
   "dependencies": {
     "particle-api-js": "5.1.*",
-    "a0-angular-storage": "0.0.*"
+    "a0-angular-storage": "0.0.*",
+    "ionic-color-picker": "1.0.*"
   },
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.2.4"

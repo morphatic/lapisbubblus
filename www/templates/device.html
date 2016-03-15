@@ -1,30 +1,34 @@
 <ion-view view-title="{{ device.name }}">
   <ion-content class="padding">
-    <p>Device name: {{ device.name }}</p>
+    <div class="card">
+      <div class="item item-divider">Basic Settings</div>
+      <div class="item item-text-wrap padding-horizontal">
+        <button class="button button-stable button-block" color-picker="" ng-model="device.solidColor" 
+                modal-title="Choose a color" color-mode="hsv" color-box="{{device.solidColor}}" ng-controller="DeviceController">
+          Choose a Color
+        </button>
+      </div>
+    </div>
     <ion-list>
       <ion-item>
-        <div class="item item-button-right">
-          Solid Red
-          <button class="button button-assertive" ng-click="showRed()">
-            <i class="icon ion-asterisk"></i>
-          </button>
-        </div>
+        <button class="item button button-block icon-left ion-ios-flower-outline button-balanced" ng-click="showSolid()">
+          Solid Color
+        </button>
       </ion-item>
       <ion-item>
-        <div class="item item-button-right">
-          Solid Blue
-          <button class="button button-positive" ng-click="showBlue()">
-            <i class="icon ion-asterisk"></i>
-          </button>
-        </div>
+        <button class="item button button-block icon-left ion-ios-flower-outline button-assertive" ng-click="showRainbow()">
+          Rainbow
+        </button>
       </ion-item>
       <ion-item>
-        <div class="item item-button-right">
-          Solid Green
-          <button class="button button-balanced" ng-click="showGreen()">
-            <i class="icon ion-asterisk"></i>
-          </button>
-        </div>
+        <button class="item button button-block icon-left ion-ios-flower-outline button-energized" ng-click="showStrobe()">
+          Strobe
+        </button>
+      </ion-item>
+      <ion-item>
+        <button class="item button button-block icon-left ion-ios-flower-outline button-calm" ng-click="showPulse()">
+          Pulse
+        </button>
       </ion-item>
     </ion-list>
   </ion-content>

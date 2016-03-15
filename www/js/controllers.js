@@ -54,27 +54,37 @@ angular.module('starter.controllers', [])
     function(deviceData) {
       $scope.device = deviceData.body;
       $scope.$apply();
-      console.log(deviceData.body);
     },
     function(err) {console.log(err);}
   );
 
-  $scope.showRed = function() {
-    Devices.call($stateParams.id, "setShow", "solidRed").then(
-      function(data) { console.log(data); },
-      function(err)  { console.log(err);  }
-    );
+  Devices.getVar($stateParams.id, "color").then(
+    function(data) {
+      var color = '#' + Number(data.body.result).toString(16);
+      $scope.device.solidColor = color;
+      $scope.$apply();
+    },
+    function(err)  { console.log(err); }
+  );
+
+  $scope.showRainbow = function() {
+    Devices.call($stateParams.id, "setShow", "rainbow");
   };
-  $scope.showBlue = function() {
-    Devices.call($stateParams.id, "setShow", "solidBlue").then(
-      function(data) { console.log(data); },
-      function(err)  { console.log(err);  }
-    );
+
+  $scope.showSolid = function() {
+    Devices.call($stateParams.id, "setShow", "solidColor");
   };
-  $scope.showGreen = function() {
-    Devices.call($stateParams.id, "setShow", "solidGreen").then(
-      function(data) { console.log(data); },
-      function(err)  { console.log(err);  }
-    );
+
+  $scope.showStrobe = function() {
+    Devices.call($stateParams.id, "setShow", "strobe");
   };
+
+  $scope.showPulse = function() {
+    Devices.call($stateParams.id, "setShow", "pulse");
+  };
+
+  $scope.$on('modal.hidden', function() {
+    Devices.call($stateParams.id, "setColor", $scope.device.solidColor.substring(1));
+  });
+
 });
