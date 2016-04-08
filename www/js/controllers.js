@@ -49,7 +49,10 @@ angular.module('starter.controllers', [])
 })
 
 .controller('DeviceController', function($scope, $stateParams, Devices) {
-  $scope.device = {};
+  $scope.device = {
+    solidColor: "#000000",
+    power: 0
+  };
   Devices.get($stateParams.id).then(
     function(deviceData) {
       $scope.device = deviceData.body;
@@ -66,6 +69,10 @@ angular.module('starter.controllers', [])
     },
     function(err)  { console.log(err); }
   );
+
+  $scope.setBubbles = function() {
+    Devices.call($stateParams.id, "setPower", $scope.device.power);
+  };
 
   $scope.showRainbow = function() {
     Devices.call($stateParams.id, "setShow", "rainbow");

@@ -1,12 +1,18 @@
 <ion-view view-title="{{ device.name }}">
   <ion-content class="padding">
     <div class="card">
-      <div class="item item-divider">Basic Settings</div>
-      <div class="item item-text-wrap padding-horizontal">
+      <div class="item item-divider">Solid Color</div>
+      <div class="item">
         <button class="button button-stable button-block" color-picker="" ng-model="device.solidColor" 
                 modal-title="Choose a color" color-mode="hsv" color-box="{{device.solidColor}}" ng-controller="DeviceController">
           Choose a Color
         </button>
+      </div>
+      <div class="item item-divider">Bubble Volume</div>
+      <div class="item range range-energized">
+        <i class="icon ion-android-remove"></i>
+        <input type="range" min="0" max="255" value="0" on-release="setBubbles()" ng-model="device.power">
+        <i class="icon ion-android-add"></i>
       </div>
     </div>
     <ion-list>
